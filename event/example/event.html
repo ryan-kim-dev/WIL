@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Capturing & Event Bubbling</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        padding: 30px;
+        text-align: center;
+      }
+      html {
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+      }
+      body {
+        background-color: #ddd;
+        width: 600px;
+      }
+      main {
+        background-color: #ccc;
+      }
+      div {
+        background-color: #bbb;
+      }
+      p {
+        background-color: #aaa;
+      }
+      span {
+        display: block;
+        background-color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    body 영역
+    <main>
+      main 영역
+      <div>
+        div 영역
+        <p>
+          p 영역
+          <span>span 영역</span>
+        </p>
+      </div>
+    </main>
+    <script>
+      const $body = document.querySelector('body');
+      const $main = document.querySelector('main');
+      const $div = document.querySelector('div');
+      const $p = document.querySelector('p');
+      const $span = document.querySelector('span');
+
+      // 1. Event Capturing
+      $span.addEventListener(
+        'click',
+        function (event) {
+          console.log(`[ ${event.eventPhase} ]Capturing span 태그`);
+        },
+        true
+      );
+
+      $p.addEventListener(
+        'click',
+        function (event) {
+          console.log(`[ ${event.eventPhase} ]Capturing p 태그`);
+        },
+        true
+      );
+
+      $div.addEventListener(
+        'click',
+        function (event) {
+          console.log(`[ ${event.eventPhase} ]Capturing div 태그`);
+        },
+        true
+      );
+
+      $main.addEventListener(
+        'click',
+        function (event) {
+          console.log(`[ ${event.eventPhase} ]Capturing main 태그`);
+        },
+        true
+      );
+
+      $body.addEventListener(
+        'click',
+        function (event) {
+          console.log(`[ ${event.eventPhase} ]Capturing body 태그`);
+        },
+        true
+      );
+
+      // 2. Event Bubbling
+      $span.addEventListener('click', function (event) {
+        console.log(`[ ${event.eventPhase} ]Bubbling span 태그`);
+      });
+
+      $p.addEventListener('click', function (event) {
+        console.log(`[ ${event.eventPhase} ]Bubbling p 태그`);
+      });
+
+      $div.addEventListener('click', function (event) {
+        event.stopPropagation();
+        console.log(
+          `[ ${event.eventPhase} ]Bubbling div 태그 + stopPropagation`
+        );
+      });
+
+      $main.addEventListener('click', function (event) {
+        console.log(`[ ${event.eventPhase} ]Bubbling main 태그`);
+      });
+
+      $body.addEventListener('click', function (event) {
+        console.log(`[ ${event.eventPhase} ]Bubbling body 태그`);
+      });
+    </script>
+  </body>
+</html>
