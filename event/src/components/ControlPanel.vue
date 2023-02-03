@@ -1,10 +1,10 @@
 <template>
-  <div>Children</div>
+  <v-btn>버튼</v-btn>
 </template>
 
 <script>
 export default {
-  name: 'ChildrenComponent',
+  name: 'ControlPanel',
 
   data() {
     return {};
